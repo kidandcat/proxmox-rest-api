@@ -1,33 +1,41 @@
 router.delete('/container', (req, res, next) => {
-    pve.deleteContainer(req.body.id, (response) => {
-        res.json(response);
-    });
+    pve.stopContainer(req.body.id, (response) => {
+        res.json({
+            message: "Machine status changed to destroy"
+        });
 
-    db.find({
-        machine: req.body.id
-    }, function(err, docs) {
+        db.insert({
+          destroy: req.body.id,
+          date: new Date()
+        });
+
         db.find({
-            username: docs[0].user
+            machine: req.body.id
         }, function(err, docs) {
-            db.update({
-                username: docs[0].username
-            }, {
-                $set: {
-                    machines: docs[0].machines.split(':' + req.body.id).join('')
-                }
-            }, {}, function(err, numReplaced) {
-                if (err) {
-                    console.log('ERROR', err);
-                }
-            });
-
-            db.remove({
-                machine: req.body.id
-            }, {}, function(err, numRemoved) {
-                if (err) {
-                    console.log('ERROR', err);
-                }
-            });
+            if (docs.length > 0) {
+                db.find({
+                    username: docs[0].user
+                }, function(err, docs) {
+                    db.update({
+                        username: docs[0].username
+                    }, {
+                        $set: {
+                            machines: cleanArray((docs[0].machines.split(req.body.id).join('')).split(':')).join(':')
+                        }
+                    }, {}, function(err, numReplaced) {
+                        if (err) {
+                            console.log('ERROR', err);
+                        }
+                    });
+                    db.remove({
+                        machine: req.body.id
+                    }, {}, function(err, numRemoved) {
+                        if (err) {
+                            console.log('ERROR', err);
+                        }
+                    });
+                });
+            }
         });
     });
 });
@@ -38,10 +46,10 @@ router.get('/container', (req, res, next) => {
             username: req.query.username
         }, function(err, docs) {
             let data = [];
-            docs[0].machines.split(':').forEach(function(id) {
+            cleanArray(docs[0].machines.split(':')).forEach(function(id) {
                 pve.statusContainer(id, (response) => {
                     data.push(response);
-                    if (data.length == docs[0].machines.split(':').length) {
+                    if (data.length == cleanArray(docs[0].machines.split(':')).length) {
                         res.json(data);
                     }
                 });
@@ -53,7 +61,7 @@ router.get('/container', (req, res, next) => {
         });
     } else {
         res.status(400).json({
-            Error: "You must specify machine id or username"
+            Error: "You must specify machine ID or username"
         });
     }
 });
@@ -61,7 +69,7 @@ router.get('/container', (req, res, next) => {
 router.post('/container', (req, res, next) => {
     if (typeof req.body.username == 'undefined') {
         res.status(400).json({
-            Error: "Username must be provided!"
+            Error: "Username must be provided"
         });
     } else {
         db.find({
@@ -79,8 +87,12 @@ router.post('/container', (req, res, next) => {
                     disk: req.body.disk,
                     password: docs[0].password
                 }, (response) => {
-                    if (response.data.substring(0, 4) == 'UPID') {
+                    if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
+                        setTimeout(() => {
+                          pve.startContainer(id, () => {});
+                        }, 20000);
+
                         db.insert({
                             machine: id,
                             user: req.body.username
@@ -96,12 +108,15 @@ router.post('/container', (req, res, next) => {
                                 console.log('ERROR', err);
                             }
                         });
+                        res.json(response);
+                    } else {
+                        res.status(400).json(response);
                     }
-                    res.json(response);
+
                 });
             } else {
                 res.status(400).json({
-                    Error: "User not found."
+                    Error: "User not found"
                 });
             }
         });
@@ -111,3 +126,16 @@ router.post('/container', (req, res, next) => {
 
 
 module.exports = router;
+
+
+
+
+function cleanArray(actual) {
+    var newArray = new Array();
+    for (var i = 0; i < actual.length; i++) {
+        if (actual[i]) {
+            newArray.push(actual[i]);
+        }
+    }
+    return newArray;
+}

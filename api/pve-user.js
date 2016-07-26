@@ -1,6 +1,8 @@
 router.get('/user', (req, res, next) => {
     if (typeof req.query.username == 'undefined') {
-        db.find({}, function(err, docs) {
+        db.find({
+          username: /./
+        }, function(err, docs) {
             res.json(docs);
         });
     } else {

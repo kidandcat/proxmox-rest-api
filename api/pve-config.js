@@ -13,7 +13,7 @@ db = new Datastore({
     filename: './data/users.db',
     autoload: true
 });
-db.persistence.setAutocompactionInterval(20000);
+db.persistence.setAutocompactionInterval(10000);
 
 
 module.exports = router;

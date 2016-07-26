@@ -56,7 +56,8 @@ router.options('/container', (req, res, next) => {
             id: 'number'
         },
         GET: {
-            id: 'number|optional'
+            id: 'number|optional',
+            username: 'string|optional'
         }
     });
 });
