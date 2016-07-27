@@ -3,11 +3,18 @@ router.options('/cluster', (req, res, next) => {
     res.json({
         REPORT: 'Cluster status',
         GET: {
+            default: {
+                url: '/cluster',
+                description: 'Return all machines in Destroy state'
+            },
             nextId: {
                 url: '/cluster/nextid',
                 description: 'Get next free ID for VM'
             }
-        }
+        },
+        DELETE: {
+            description: 'Delete all machines in Destroy state'
+        },
     });
 });
 
@@ -18,23 +25,30 @@ router.options('/node', (req, res, next) => {
     });
 });
 
+router.options('/template', (req, res, next) => {
+    res.setHeader('Allow', 'GET');
+    res.json({
+        GET: 'Returns template\'s list'
+    });
+});
+
 router.options('/user', (req, res, next) => {
     res.setHeader('Allow', 'GET,PUT,POST,DELETE');
     res.json({
-      GET: {
-          username: 'string'
-      },
-      POST: {
-          username: 'string',
-          password: 'string'
-      },
-      PUT: {
-          username: 'string',
-          password: 'string| new password'
-      },
-      DELETE: {
-          username: 'string'
-      },
+        GET: {
+            username: 'string'
+        },
+        POST: {
+            username: 'string',
+            password: 'string'
+        },
+        PUT: {
+            username: 'string',
+            password: 'string| new password'
+        },
+        DELETE: {
+            username: 'string'
+        },
     });
 });
 
@@ -42,6 +56,7 @@ router.options('/container', (req, res, next) => {
     res.setHeader('Allow', 'POST,GET,DELETE');
     res.json({
         POST: {
+            username: 'string|Asociated Username',
             template: 'string',
             cpu: 'number',
             hostname: 'string',
@@ -49,8 +64,7 @@ router.options('/container', (req, res, next) => {
             ostype: 'string|ubuntu,debian,centos,archlinux',
             storage: 'string',
             swap: 'number|megabytes',
-            disk: 'number|gigabytes',
-            username: 'string|Asociated Username'
+            disk: 'number|gigabytes'
         },
         DELETE: {
             id: 'number'
@@ -68,9 +82,8 @@ router.options('/', (req, res, next) => {
         Endpoints: {
             container: 'LXC containers',
             node: 'Proxmox Cluster Nodes',
-            vm: 'Virtual Machines under KVM', //TODO:VM management
             template: 'Container templates',
-            user: 'User management', //TODO:User endpoint options
+            user: 'User management',
             cluster: 'Cluster manage and global methods',
         }
     });

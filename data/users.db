@@ -1,5 +1,3 @@
 {"username":"jairo","password":"jajaj","_id":"DP8IVfxh4gj1LzpE","machines":"102:103:104:105:106:107"}
-{"destroy":"107","date":{"$$date":1469611134973},"_id":"igFXtpSBTH3Mb4im"}
-{"destroy":"109","date":{"$$date":1469611086862},"_id":"zOj14JLnxAhgwqg3"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}
