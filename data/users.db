@@ -1,3 +1,7 @@
-{"username":"jairo","password":"jajaj","_id":"DP8IVfxh4gj1LzpE","machines":"102:103:104:105:106:107"}
+{"username":"jairo","password":"jajaj","_id":"DP8IVfxh4gj1LzpE","machines":"107:107:100:101:100:101"}
+{"machine":"107","user":"jairo","_id":"OoL7CrOQmCrSCBMR"}
+{"machine":"100","user":"jairo","_id":"sutfOwyUxGNk6yDm"}
+{"machine":"101","user":"jairo","_id":"uPIrrytEXb0wy9GX"}
+{"destroy":"104","date":{"$$date":1469628698029},"_id":"y3lPvDgEs8wrQlYw"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}

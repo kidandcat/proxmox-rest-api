@@ -98,6 +98,7 @@ router.post('/container', (req, res, next) => {
                     disk: req.body.disk,
                     password: docs[0].password
                 }, (response) => {
+                  console.log('RES', response);
                     if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {
