@@ -2,6 +2,7 @@
     "url": "https://192.168.1.104:8006/api2/json/",
     "user": "root",
     "password": "descargarte",
-    "node": ["pve"],
-    "templateStorage": "local"
+    "node": ["pve", "pve2"],
+    "templateStorage": "local",
+    "distributionProperty": "LOAD"
 }

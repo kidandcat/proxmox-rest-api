@@ -4,11 +4,6 @@ router.delete('/container', (req, res, next) => {
             message: "Machine status changed to destroy"
         });
 
-        db.insert({
-          destroy: req.body.id,
-          date: new Date()
-        });
-
         db.find({
             machine: req.body.id
         }, function(err, docs) {
@@ -24,17 +19,28 @@ router.delete('/container', (req, res, next) => {
                         }
                     }, {}, function(err, numReplaced) {
                         if (err) {
-                            console.log('ERROR', err);
+                            console.log('ERROR22 update machines field - ' + numReplaced, err.message);
                         }
                     });
                     db.remove({
                         machine: req.body.id
-                    }, {}, function(err, numRemoved) {
+                    }, {
+                        multi: true
+                    }, function(err, numRemoved) {
                         if (err) {
-                            console.log('ERROR', err);
+                            console.log('ERROR31 remove machine - ' + req.body.id, err.message);
                         }
                     });
                 });
+            }
+        });
+
+        db.insert({
+            destroy: req.body.id,
+            date: new Date()
+        }, (err) => {
+            if (err) {
+                console.log('ERROR42', err.message);
             }
         });
     });
@@ -57,7 +63,12 @@ router.get('/container', (req, res, next) => {
         });
     } else if (req.query.id) {
         pve.statusContainer(req.query.id, (response) => {
-            res.json(response);
+            db.find({
+                machine: req.query.id
+            }, function(err, docs) {
+                response.username = docs.user;
+                res.json(response);
+            });
         });
     } else {
         res.status(400).json({
@@ -90,12 +101,16 @@ router.post('/container', (req, res, next) => {
                     if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {
-                          pve.startContainer(id, () => {});
+                            pve.startContainer(id, () => {});
                         }, 20000);
 
                         db.insert({
                             machine: id,
                             user: req.body.username
+                        }, (err) => {
+                            if (err) {
+                                console.log('ERROR110', err.message);
+                            }
                         });
                         db.update({
                             username: req.body.username
@@ -105,10 +120,12 @@ router.post('/container', (req, res, next) => {
                             }
                         }, {}, function(err, numReplaced) {
                             if (err) {
-                                console.log('ERROR', err);
+                                console.log('ERROR121', err.message);
                             }
                         });
-                        res.json(response);
+                        res.json({
+                            id: id
+                        });
                     } else {
                         res.status(400).json(response);
                     }

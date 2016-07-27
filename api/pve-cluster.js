@@ -10,18 +10,26 @@ router.get('/cluster/nextid', (req, res, next) => {
     });
 });
 
-router.delete('/cluster', (req, res, next) => {
-  db.find({
-      destroy: /./
-  }, function(err, docs) {
-    docs.forEach(ma => {
-      pve.deleteContainer(ma.destroy, () => {});
-      db.remove({
-          destroy: ma.destroy
-      }, {}, () => {});
+router.get('/cluster', (req, res, next) => {
+    db.find({
+        destroy: /./
+    }, function(err, docs) {
+        res.json(docs);
     });
-  });
-  res.send('OK');
+});
+
+router.delete('/cluster', (req, res, next) => {
+    db.find({
+        destroy: /./
+    }, function(err, docs) {
+        docs.forEach(ma => {
+            pve.deleteContainer(ma.destroy, () => {});
+            db.remove({
+                destroy: ma.destroy
+            }, {}, () => {});
+        });
+    });
+    res.send('OK');
 });
 
 
