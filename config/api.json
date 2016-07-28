@@ -1,9 +1,10 @@
 {
-    "url": "https://192.168.1.104:8006/api2/json/",
+    "url": "https://192.168.1.104:8006",
     "user": "root",
     "password": "descargarte",
     "node": ["pve", "pve2"],
     "templateStorage": "local",
     "distributionProperty": "LOAD",
-    "net": "name=eth0,ip=dhcp,bridge=vmbr0"
+    "net": "name=eth0,ip=dhcp,bridge=vmbr0",
+    "vncserver": "https://192.168.1.104:8006"
 }

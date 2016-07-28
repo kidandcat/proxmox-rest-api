@@ -24,6 +24,7 @@ app.use('/', require('./api/pve-node'));
 app.use('/', require('./api/pve-doc'));
 app.use('/', require('./api/pve-user'));
 app.use('/', require('./api/pve-template'));
+app.use('/', require('./api/pve-vnc'));
 
 
 app.get('/', (req, res, next) => {
