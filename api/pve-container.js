@@ -1,3 +1,4 @@
+const console = process.console;
 router.delete('/container', (req, res, next) => {
     pve.stopContainer(req.body.id, (response) => {
         res.json({

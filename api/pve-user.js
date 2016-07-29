@@ -1,3 +1,4 @@
+const console = process.console;
 router.get('/user', (req, res, next) => {
     if (typeof req.query.username == 'undefined') {
         db.find({

@@ -1,4 +1,10 @@
-{"username":"jairo","password":"jajaj","_id":"DP8IVfxh4gj1LzpE","machines":":101"}
+{"machine":"102","user":"jairo","_id":"2rN4eBcNzlDtMD4q"}
+{"machine":"104","user":"jairo","_id":"9xyjl7gqHlWopTWl"}
+{"username":"jairo","password":"jajaj","_id":"DP8IVfxh4gj1LzpE","machines":":101:102:103:104:105:106:107"}
+{"machine":"107","user":"jairo","_id":"K5u0sljsNFA6FCM3"}
+{"machine":"105","user":"jairo","_id":"LJ4Pyo2TGNZTvXMd"}
+{"machine":"103","user":"jairo","_id":"XO1QsyOPQJU0mQJ7"}
+{"machine":"106","user":"jairo","_id":"cZTaDPRyjrVzLTMo"}
 {"machine":"101","user":"jairo","_id":"r2e9rszPu8N2AUHq"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}

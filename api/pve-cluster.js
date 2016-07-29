@@ -1,3 +1,4 @@
+const console = process.console;
 router.report('/cluster', (req, res, next) => {
     pve.status(response => {
         res.json(response);

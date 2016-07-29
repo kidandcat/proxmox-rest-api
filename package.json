@@ -4,14 +4,17 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nsp check && node app.js",
+    "install": "npm install -g nsp"
   },
   "author": "jairo@galax.be",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "helmet": "^2.1.2",
     "nedb": "^1.8.0",
-    "request": "^2.73.0"
+    "request": "^2.73.0",
+    "scribe-js": "^2.0.4"
   }
 }

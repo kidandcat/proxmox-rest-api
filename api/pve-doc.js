@@ -1,3 +1,4 @@
+const console = process.console;
 router.options('/cluster', (req, res, next) => {
     res.setHeader('Allow', 'GET,REPORT');
     res.json({

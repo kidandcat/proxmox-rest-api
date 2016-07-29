@@ -2,6 +2,7 @@
 // DON'T TOUCH //
 /////////////////
 
+const console = process.console;
 express = require('express');
 router = express.Router();
 path = require('path');
