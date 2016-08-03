@@ -52,6 +52,13 @@ router.get('/container', (req, res, next) => {
         db.find({
             username: req.query.username
         }, function(err, docs) {
+            if (err || docs.length == 0) {
+                console.log('ERROR56', err.message);
+                res.status(400).json(err.message);
+            }
+            if (docs[0].machines.split(':')[0] == '') {
+                res.json({});
+            }
             let data = [];
             cleanArray(docs[0].machines.split(':')).forEach(function(id) {
                 pve.statusContainer(id, (response) => {
@@ -64,12 +71,7 @@ router.get('/container', (req, res, next) => {
         });
     } else if (req.query.id) {
         pve.statusContainer(req.query.id, (response) => {
-            db.find({
-                machine: req.query.id
-            }, function(err, docs) {
-                response.username = docs.user;
-                res.json(response);
-            });
+            res.json(response);
         });
     } else {
         res.status(400).json({
@@ -99,7 +101,7 @@ router.post('/container', (req, res, next) => {
                     disk: req.body.disk,
                     password: docs[0].password
                 }, (response) => {
-                  console.log('RES', response);
+                    console.log('RES', response);
                     if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {

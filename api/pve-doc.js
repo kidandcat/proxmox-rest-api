@@ -33,6 +33,20 @@ router.options('/template', (req, res, next) => {
     });
 });
 
+router.options('/utils', (req, res, next) => {
+    res.setHeader('Allow', 'GET,PUT,POST,DELETE');
+    res.json({
+        GET: {
+            vnc: {
+              id: 'machine id'
+            },
+            graphic: {
+              id: 'mahcine id'
+            }
+        }
+    });
+});
+
 router.options('/user', (req, res, next) => {
     res.setHeader('Allow', 'GET,PUT,POST,DELETE');
     res.json({
@@ -86,6 +100,7 @@ router.options('/', (req, res, next) => {
             template: 'Container templates',
             user: 'User management',
             cluster: 'Cluster manage and global methods',
+            utils: 'Some extra methods, like vnc and RRD data'
         }
     });
 });
