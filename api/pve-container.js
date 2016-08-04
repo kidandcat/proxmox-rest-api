@@ -53,8 +53,9 @@ router.get('/container', (req, res, next) => {
             username: req.query.username
         }, function(err, docs) {
             if (err || docs.length == 0) {
-                console.log('ERROR56', err.message);
-                res.status(400).json(err.message);
+                console.log('ERROR56', err);
+                res.status(400).json(err);
+                return false;
             }
             if (docs[0].machines.split(':')[0] == '') {
                 res.json({});
