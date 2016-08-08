@@ -1,4 +1,4 @@
-{"username":"jairo","password":"jajaj","_id":"DP8IVfxh4gj1LzpE","machines":""}
-{"username":"jairus","password":"kkkkkk","_id":"dxubOOaBjE4f87WN"}
+{"username":"jairocaro","password":"jairocaro","_id":"iNJZJfLcSmfVMgXh","machines":"100"}
+{"machine":"100","user":"jairocaro","_id":"jH8QQ1jIRYlaDc6v"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}

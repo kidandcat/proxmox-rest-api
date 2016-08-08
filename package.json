@@ -5,14 +5,18 @@
   "main": "app.js",
   "scripts": {
     "start": "nsp check && node app.js",
-    "install": "npm install -g nsp"
+    "install": "npm install -g nsp",
+    "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000"
   },
   "author": "jairo@galax.be",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "data-driven": "^1.2.1",
     "express": "^4.14.0",
     "helmet": "^2.1.2",
+    "mocha": "^3.0.2",
     "nedb": "^1.8.0",
     "request": "^2.73.0",
     "scribe-js": "^2.0.4"
