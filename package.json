@@ -7,7 +7,7 @@
     "start": "nsp check && node app.js",
     "install": "npm install -g nsp",
     "test": "./node_modules/.bin/mocha --reporter spec --timeout 1000000",
-    "performance": "node performance_runner.js"
+    "performance": "node performance/performance_runner.js"
   },
   "author": "jairo@galax.be",
   "license": "MIT",

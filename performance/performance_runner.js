@@ -9,7 +9,7 @@ for (let i = 0; i < SIMULTANEOUS; i++) {
         'spec',
         '--timeout',
         '1000000',
-        'test/performance.js'
+        'performance/performance.js'
     ]);
 
     child.stdout.on('data', function(chunk) {
