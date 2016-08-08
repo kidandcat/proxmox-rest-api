@@ -66,9 +66,7 @@ xdescribe("CONTAINER ENDPOINT", function() {
                     ok = true;
                 }
                 expect(error).to.equal(null);
-                setTimeout(() => {
-                    done();
-                }, 15000);
+                done();
             });
         });
 
