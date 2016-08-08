@@ -6,7 +6,7 @@ var data_driven = require('data-driven');
 var URL = "http://127.0.0.1:8000";
 
 
-describe("Cluster Endpoint", function() {
+describe("CLUSTER ENDPOINT", function() {
     describe("REPORT /cluster", function() {
         let options = {
             method: 'REPORT',

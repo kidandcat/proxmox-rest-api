@@ -12,17 +12,20 @@ router.delete('/container', (req, res, next) => {
                 db.find({
                     username: docs[0].user
                 }, function(err, docs) {
-                    db.update({
-                        username: docs[0].username
-                    }, {
-                        $set: {
-                            machines: cleanArray((docs[0].machines.split(req.body.id).join('')).split(':')).join(':')
-                        }
-                    }, {}, function(err, numReplaced) {
-                        if (err) {
-                            console.log('ERROR22 update machines field - ' + numReplaced, err.message);
-                        }
-                    });
+                    try {
+                        db.update({
+                            username: docs[0].username
+                        }, {
+                            $set: {
+                                machines: cleanArray((docs[0].machines.split(req.body.id).join('')).split(':')).join(':')
+                            }
+                        }, {}, function(err, numReplaced) {
+                            if (err) {
+                                console.log('ERROR22 update machines field - ' + numReplaced, err.message);
+                            }
+                        });
+                    } catch (e) {}
+
                     db.remove({
                         machine: req.body.id
                     }, {
@@ -57,12 +60,18 @@ router.get('/container', (req, res, next) => {
                 res.status(400).json(err);
                 return false;
             }
-            if (docs[0].machines.split(':')[0] == '') {
+            if (!docs || !docs[0] || !docs[0].machines || docs[0].machines.split(':')[0] == '') {
                 res.json({});
+                return false;
             }
             let data = [];
             cleanArray(docs[0].machines.split(':')).forEach(function(id) {
                 pve.statusContainer(id, (response) => {
+                    Object.keys(response).forEach((nod) => {
+                        if (typeof response[nod] == 'object') {
+                            response = response[nod];
+                        }
+                    });
                     data.push(response);
                     if (data.length == cleanArray(docs[0].machines.split(':')).length) {
                         res.json(data);
@@ -72,6 +81,11 @@ router.get('/container', (req, res, next) => {
         });
     } else if (req.query.id) {
         pve.statusContainer(req.query.id, (response) => {
+            Object.keys(response).forEach((nod) => {
+                if (typeof response[nod] == 'object') {
+                    response = response[nod];
+                }
+            });
             res.json(response);
         });
     } else {

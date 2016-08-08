@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nsp check && node app.js",
     "install": "npm install -g nsp",
-    "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000"
+    "test": "./node_modules/.bin/mocha --reporter spec --timeout 300000"
   },
   "author": "jairo@galax.be",
   "license": "MIT",

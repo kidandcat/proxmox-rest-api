@@ -6,7 +6,7 @@ var data_driven = require('data-driven');
 var URL = "http://127.0.0.1:8000";
 
 
-describe("User Endpoint", function() {
+describe("USER ENDPOINT", function() {
 
     describe("POST /user", function() {
         let options = {
