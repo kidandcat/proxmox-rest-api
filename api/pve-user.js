@@ -49,7 +49,7 @@ router.post('/user', (req, res, next) => {
             });
         } else {
             db.insert(doc);
-            res.json('OK');
+            res.send('OK');
         }
     });
 });

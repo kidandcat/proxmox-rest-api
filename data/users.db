@@ -1,4 +1,3 @@
-{"username":"jairocaro","password":"jairocaro","_id":"iNJZJfLcSmfVMgXh","machines":"100"}
-{"machine":"100","user":"jairocaro","_id":"jH8QQ1jIRYlaDc6v"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
+{"$$indexCreated":{"fieldName":"username","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}

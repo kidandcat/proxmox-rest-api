@@ -18,6 +18,9 @@ db.persistence.setAutocompactionInterval(10000);
 db.ensureIndex({ fieldName: 'destroy', unique: true, sparse: true }, function (err) {
   if(err){console.log('ERROR', err)};
 });
+db.ensureIndex({ fieldName: 'username', unique: true, sparse: true }, function (err) {
+  if(err){console.log('ERROR', err)};
+});
 db.ensureIndex({ fieldName: 'machine', unique: true, sparse: true }, function (err) {
   if(err){console.log('ERROR', err)};
 });
