@@ -1,6 +1,7 @@
 const spawn = require('child_process').spawn;
 
-const SIMULTANEOUS = 3;
+const SIMULTANEOUS = process.argv[2] || 1;
+
 
 
 for (let i = 0; i < SIMULTANEOUS; i++) {

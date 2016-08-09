@@ -1,5 +1,5 @@
-{"destroy":"101","date":{"$$date":1470660275830},"_id":"vtRVDZhz7TRjv8an"}
-{"destroy":"100","date":{"$$date":1470658759858},"_id":"xJT3yAjGO1wnT3Jz"}
+{"username":"jairo","password":"jairo","_id":"JRxL5bEubsFjkPjY","machines":":100"}
+{"machine":"100","user":"jairo","_id":"tKCwU3u3s0jCHJ8g"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"username","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}

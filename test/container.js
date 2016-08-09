@@ -6,7 +6,7 @@ var data_driven = require('data-driven');
 var URL = "http://127.0.0.1:8000";
 let username = "unitTest" + Math.floor((Math.random() * 10) + 1);
 
-xdescribe("CONTAINER ENDPOINT", function() {
+describe("CONTAINER ENDPOINT", function() {
 
     it("Create Demo User", function(done) {
         let opt = {

@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const scribe = require('scribe-js')();
 const console = process.console;
 
+require('monitor').start();
+
 const PORT = 8000;
 
 app.use(bodyParser.json());

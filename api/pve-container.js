@@ -60,13 +60,18 @@ router.get('/container', (req, res, next) => {
                 res.status(400).json(err);
                 return false;
             }
+            while(docs[0].machines.charAt(0) == ':') {
+                docs[0].machines = docs[0].machines.substring(1);
+            }
             if (!docs || !docs[0] || !docs[0].machines || docs[0].machines.split(':')[0] == '') {
                 res.json({});
                 return false;
             }
             let data = [];
+
             cleanArray(docs[0].machines.split(':')).forEach(function(id) {
                 pve.statusContainer(id, (response) => {
+
                     Object.keys(response).forEach((nod) => {
                         if (typeof response[nod] == 'object') {
                             response = response[nod];
@@ -107,8 +112,8 @@ router.post('/container', (req, res, next) => {
             if (docs.length > 0) {
                 pve.createContainer({
                     template: req.body.template,
-                    cpu: req.body.cpu,
                     hostname: req.body.hostname,
+                    cpu: req.body.cpu,
                     memory: req.body.memory,
                     ostype: req.body.ostype,
                     storage: req.body.storage,
