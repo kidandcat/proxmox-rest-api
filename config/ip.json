@@ -2,32 +2,32 @@
   "pool": [
     {
       "ip": "192.168.0.105",
-      "free": false,
+      "free": true,
       "lock": false
     },
     {
       "ip": "192.168.0.106",
-      "free": false,
+      "free": true,
       "lock": false
     },
     {
       "ip": "192.168.0.107",
-      "free": false,
+      "free": true,
       "lock": false
     },
     {
       "ip": "192.168.0.108",
-      "free": false,
+      "free": true,
       "lock": false
     },
     {
       "ip": "192.168.0.109",
       "free": true,
-      "lock": true
+      "lock": false
     },
     {
       "ip": "192.168.0.110",
-      "free": false,
+      "free": true,
       "lock": false
     }
   ]

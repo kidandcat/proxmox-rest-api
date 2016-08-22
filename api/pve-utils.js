@@ -27,5 +27,11 @@ router.get('/utils/ticket', (req, res, next) => {
     });
 });
 
+router.get('/test', (req, res, next) => {
+    pve.testContainer(response => {
+        res.json(response);
+    });
+});
+
 
 module.exports = router;

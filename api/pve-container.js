@@ -83,19 +83,43 @@ router.get('/container', (req, res, next) => {
                     });
                     data.push(response);
                     if (data.length == cleanArray(docs[0].machines.split(':')).length) {
-                        res.json(data);
+                      pve.networkContainer(id, (response) => {
+
+                          Object.keys(response).forEach((nod) => {
+                              if (typeof response[nod] == 'object') {
+                                  response = response[nod];
+                              }
+                          });
+                          data.push(response);
+                          if (data.length/2 == cleanArray(docs[0].machines.split(':')).length) {
+                              res.json(data);
+                          }
+                      });
                     }
                 });
             });
         });
     } else if (req.query.id) {
         pve.statusContainer(req.query.id, (response) => {
+            let data = [];
             Object.keys(response).forEach((nod) => {
                 if (typeof response[nod] == 'object') {
                     response = response[nod];
                 }
             });
-            res.json(response);
+            data.push(response);
+            pve.networkContainer(req.query.id, (response) => {
+
+                Object.keys(response).forEach((nod) => {
+                    if (typeof response[nod] == 'object') {
+                        response = response[nod];
+                    }
+                });
+                for (var attrname in response.data) {
+                  data[0].data[attrname] = response.data[attrname];
+                }
+                res.json(data);
+            });
         });
     } else {
         res.status(400).json({

@@ -1,7 +1,4 @@
-{"username":"jairo","password":"descargarte","_id":"AU1Vd6sHEviGuRkl","machines":"102:103:104"}
-{"machine":"103","user":"jairo","_id":"Bo0kUOZHxTJUmJrc"}
-{"machine":"104","user":"jairo","_id":"NGtxOAob1pBZFg7h"}
-{"machine":"102","user":"jairo","_id":"ZXHIuJJcyzwFqejz"}
+{"username":"jairo","password":"descargarte","_id":"AU1Vd6sHEviGuRkl","machines":""}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"username","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}
