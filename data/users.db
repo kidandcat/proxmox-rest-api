@@ -1,4 +1,5 @@
 {"username":"jairo","password":"descargarte","_id":"AU1Vd6sHEviGuRkl","machines":""}
+{"destroy":"102","date":{"$$date":1471884276153},"_id":"VY4hDqK58KNt7mhU"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"username","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}

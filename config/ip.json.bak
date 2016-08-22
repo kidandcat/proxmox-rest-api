@@ -1,0 +1,15 @@
+{
+    "pool": [{
+        "ip": "192.168.0.105",
+        "free": true,
+        "lock": false
+    }, {
+        "ip": "192.168.0.106",
+        "free": true,
+        "lock": false
+    }, {
+        "ip": "192.168.0.107",
+        "free": true,
+        "lock": false
+    }]
+}

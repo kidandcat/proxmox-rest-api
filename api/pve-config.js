@@ -69,7 +69,8 @@ ip_findIp = (ip) => {
 
 ip_getIp = () => {
     let free = ip_nextIp();
-    if(free){
+
+    if(free !== -1){
       ipPool.pool[free].free = false;
       ip_saveIpPool();
       return ipPool.pool[free].ip;
@@ -81,7 +82,10 @@ ip_getIp = () => {
 
 ip_releaseIp = (ip) => {
     let free = ip_findIp(ip);
-    ipPool.pool[free].free = true;
+    console.log('free', free);
+    if(free !== -1){
+      ipPool.pool[free].free = true;
+    }
     ip_saveIpPool();
 }
 

@@ -5,6 +5,23 @@ router.delete('/container', (req, res, next) => {
             message: "Machine status changed to destroy"
         });
 
+        pve.networkContainer(req.body.id, (response) => {
+            Object.keys(response).forEach((nod) => {
+                if (typeof response[nod] == 'object') {
+                    response = response[nod];
+                }
+            });
+            for (let attrname in response.data) {
+              if(attrname == 'net0'){
+                let ip = response.data[attrname].split('ip=')[1].split(',')[0];
+                if(ip.split('/')[1]){
+                  ip = ip.split('/24')[0];
+                }
+                console.log('ip', ip);
+                ip_releaseIp(ip);
+              }
+            }
+        });
 
         db.find({
             machine: req.body.id
