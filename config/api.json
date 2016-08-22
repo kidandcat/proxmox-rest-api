@@ -1,10 +1,10 @@
 {
-    "url": "https://192.168.1.104:8006",
+    "url": "https://192.168.0.100:8006",
     "user": "root",
     "password": "descargarte",
-    "node": ["pve", "pve2"],
+    "node": ["pve"],
     "templateStorage": "local",
     "distributionProperty": "LOAD",
     "net": "name=eth0,ip=dhcp,bridge=vmbr0",
-    "vncserver": "https://192.168.1.104:8006"
+    "vncserver": "https://192.168.0.100:8006"
 }

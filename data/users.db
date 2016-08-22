@@ -1,5 +1,7 @@
-{"username":"jairo","password":"jairo","_id":"JRxL5bEubsFjkPjY","machines":":100"}
-{"machine":"100","user":"jairo","_id":"tKCwU3u3s0jCHJ8g"}
+{"username":"jairo","password":"descargarte","_id":"AU1Vd6sHEviGuRkl","machines":"102:103:104"}
+{"machine":"103","user":"jairo","_id":"Bo0kUOZHxTJUmJrc"}
+{"machine":"104","user":"jairo","_id":"NGtxOAob1pBZFg7h"}
+{"machine":"102","user":"jairo","_id":"ZXHIuJJcyzwFqejz"}
 {"$$indexCreated":{"fieldName":"destroy","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"username","unique":true,"sparse":true}}
 {"$$indexCreated":{"fieldName":"machine","unique":true,"sparse":true}}

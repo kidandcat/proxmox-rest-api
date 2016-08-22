@@ -5,6 +5,7 @@ router.delete('/container', (req, res, next) => {
             message: "Machine status changed to destroy"
         });
 
+
         db.find({
             machine: req.body.id
         }, function(err, docs) {
@@ -60,9 +61,12 @@ router.get('/container', (req, res, next) => {
                 res.status(400).json(err);
                 return false;
             }
-            while(docs[0].machines.charAt(0) == ':') {
-                docs[0].machines = docs[0].machines.substring(1);
-            }
+            try {
+                while (docs[0].machines.charAt(0) == ':') {
+                    docs[0].machines = docs[0].machines.substring(1);
+                }
+            } catch (e) {}
+
             if (!docs || !docs[0] || !docs[0].machines || docs[0].machines.split(':')[0] == '') {
                 res.json({});
                 return false;
@@ -119,9 +123,9 @@ router.post('/container', (req, res, next) => {
                     storage: req.body.storage,
                     swap: req.body.swap,
                     disk: req.body.disk,
+                    net: `name=eth0,ip=${ip_getIp()}/24,bridge=vmbr0`,
                     password: docs[0].password
                 }, (response) => {
-                    console.log('RES', response);
                     if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {
