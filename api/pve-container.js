@@ -27,6 +27,17 @@ router.delete('/container', (req, res, next) => {
             machine: req.body.id
         }, function(err, docs) {
             if (docs.length > 0) {
+                try {
+                    db.insert({
+                        destroy: req.body.id,
+                        date: new Date(),
+                        link: docs[0].name
+                    }, (err) => {
+                        if (err) {
+                            console.log('ERROR42', err.message);
+                        }
+                    });
+                } catch (e) {}
                 db.find({
                     username: docs[0].user
                 }, function(err, docs) {
@@ -57,14 +68,7 @@ router.delete('/container', (req, res, next) => {
             }
         });
 
-        db.insert({
-            destroy: req.body.id,
-            date: new Date()
-        }, (err) => {
-            if (err) {
-                console.log('ERROR42', err.message);
-            }
-        });
+
     });
 });
 
@@ -160,7 +164,7 @@ router.post('/container', (req, res, next) => {
             if (docs.length > 0) {
                 pve.createContainer({
                     template: req.body.template,
-                    hostname: req.body.hostname,
+                    description: (req.body.name) ? req.body.name + '-:%:-' + req.body.username : ' -:%:-' + req.body.username,
                     cpu: req.body.cpu,
                     memory: req.body.memory,
                     ostype: req.body.ostype,
@@ -178,7 +182,8 @@ router.post('/container', (req, res, next) => {
 
                         db.insert({
                             machine: id,
-                            user: req.body.username
+                            user: req.body.username,
+                            name: (req.body.name) ? req.body.name + '-:%:-' + req.body.username : ' -:%:-' + req.body.username
                         }, (err) => {
                             if (err) {
                                 console.log('ERROR110', err.message);
