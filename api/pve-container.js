@@ -12,14 +12,14 @@ router.delete('/container', (req, res, next) => {
                 }
             });
             for (let attrname in response.data) {
-              if(attrname == 'net0'){
-                let ip = response.data[attrname].split('ip=')[1].split(',')[0];
-                if(ip.split('/')[1]){
-                  ip = ip.split('/24')[0];
+                if (attrname == 'net0') {
+                    let ip = response.data[attrname].split('ip=')[1].split(',')[0];
+                    if (ip.split('/')[1]) {
+                        ip = ip.split('/24')[0];
+                    }
+                    console.log('ip', ip);
+                    ip_releaseIp(ip);
                 }
-                console.log('ip', ip);
-                ip_releaseIp(ip);
-              }
             }
         });
 
@@ -98,21 +98,24 @@ router.get('/container', (req, res, next) => {
                             response = response[nod];
                         }
                     });
-                    data.push(response);
-                    if (data.length == cleanArray(docs[0].machines.split(':')).length) {
-                      pve.networkContainer(id, (response) => {
 
-                          Object.keys(response).forEach((nod) => {
-                              if (typeof response[nod] == 'object') {
-                                  response = response[nod];
-                              }
-                          });
-                          data.push(response);
-                          if (data.length/2 == cleanArray(docs[0].machines.split(':')).length) {
-                              res.json(data);
-                          }
-                      });
-                    }
+
+                    //if (data.length == cleanArray(docs[0].machines.split(':')).length) {
+                    pve.networkContainer(id, (response2) => {
+
+                        Object.keys(response2).forEach((nod) => {
+                            if (typeof response2[nod] == 'object') {
+                                Object.keys(response2[nod].data).forEach((nodd) => {
+                                    response.data[nodd] = response2[nod].data[nodd];
+                                });
+                            }
+                        });
+                        data.push(response);
+
+                        if (data.length == cleanArray(docs[0].machines.split(':')).length) {
+                            res.json(data);
+                        }
+                    });
                 });
             });
         });
@@ -133,7 +136,7 @@ router.get('/container', (req, res, next) => {
                     }
                 });
                 for (var attrname in response.data) {
-                  data[0].data[attrname] = response.data[attrname];
+                    data[0].data[attrname] = response.data[attrname];
                 }
                 res.json(data);
             });
