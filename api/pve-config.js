@@ -8,7 +8,8 @@ fs = require('fs');
 router = express.Router();
 path = require('path');
 pve = require('../lib/proxmox')(require('../config/api.json'));
-ipPool = require('../config/ip.json');
+IPFILE = '../config/ip.json';
+ipPool = require(IPFILE);
 
 const Datastore = require('nedb');
 db = new Datastore({
@@ -69,7 +70,6 @@ ip_findIp = (ip) => {
 
 ip_getIp = () => {
     let free = ip_nextIp();
-
     if(free !== -1){
       ipPool.pool[free].free = false;
       ip_saveIpPool();
@@ -96,4 +96,8 @@ ip_saveIpPool = () => {
           throw new Error(err);
       }
   });
+}
+
+ip_loadPool  = () => {
+  ipPool = require(IPFILE);
 }
