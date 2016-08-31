@@ -11,6 +11,10 @@ pve = require('../lib/proxmox')(require('../config/api.json'));
 IPFILE = '../config/ip.json';
 ipPool = require(IPFILE);
 
+// NETWORK config
+GATEWAY = '192.168.0.1';
+BRIDGE = 'vmbr0';
+
 const Datastore = require('nedb');
 db = new Datastore({
     filename: './data/users.db',

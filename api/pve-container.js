@@ -162,6 +162,7 @@ router.post('/container', (req, res, next) => {
             username: req.body.username
         }, function(err, docs) {
             if (docs.length > 0) {
+                let ip = ip_getIp();
                 pve.createContainer({
                     template: req.body.template,
                     description: (req.body.name) ? req.body.name + '-:%:-' + req.body.username : ' -:%:-' + req.body.username,
@@ -171,9 +172,10 @@ router.post('/container', (req, res, next) => {
                     storage: req.body.storage,
                     swap: req.body.swap,
                     disk: req.body.disk,
-                    net: `name=eth0,ip=${ip_getIp()}/24,bridge=vmbr0`,
+                    net: `name=eth0,ip=${ip}/24,gw=${GATEWAY},bridge=${BRIDGE}`,
                     password: docs[0].password
                 }, (response) => {
+                  console.log('res',response);
                     if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {
