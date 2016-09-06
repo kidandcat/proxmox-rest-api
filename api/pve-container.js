@@ -78,7 +78,7 @@ router.get('/container', (req, res, next) => {
             username: req.query.username
         }, function(err, docs) {
             if (err || docs.length == 0) {
-                console.log('ERROR56', err);
+                console.log('ERROR', err);
                 res.status(400).json(err);
                 return false;
             }
@@ -175,7 +175,7 @@ router.post('/container', (req, res, next) => {
                     net: `name=eth0,ip=${ip}/24,gw=${GATEWAY},bridge=${BRIDGE}`,
                     password: docs[0].password
                 }, (response) => {
-                  console.log('res',response);
+                    console.log('res', response);
                     if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {
@@ -218,6 +218,23 @@ router.post('/container', (req, res, next) => {
         });
     }
 });
+
+router.put('/container', (req, res, next) => {
+    pve.modifyContainer(req.body.id, {
+        template: req.body.template || null,
+        description: (req.body.name) ? req.body.name + '-:%:-' + req.body.username : ' -:%:-' + req.body.username,
+        cpu: req.body.cpu || null,
+        memory: req.body.memory || null,
+        ostype: req.body.ostype || null,
+        swap: req.body.swap || null,
+        disk: req.body.disk || null,
+        password: req.body.password || null
+    }, (r) => {
+        res.json(r);
+    });
+});
+
+
 
 
 

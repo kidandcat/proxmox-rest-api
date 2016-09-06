@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 app.use('/', require('./api/pve-config'));
 app.use('/', require('./api/pve-cluster'));
 app.use('/', require('./api/pve-container'));
+app.use('/', require('./api/pve-manage'));
 app.use('/', require('./api/pve-node'));
 app.use('/', require('./api/pve-doc'));
 app.use('/', require('./api/pve-user'));
