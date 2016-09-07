@@ -11,6 +11,9 @@ pve = require('../lib/proxmox')(require('../config/api.json'));
 IPFILE = '../config/ip.json';
 ipPool = require(IPFILE);
 
+
+//Controller url
+CONTROLLER = 'http://controller/app.php/vps/json';
 // NETWORK config
 GATEWAY = '192.168.0.1';
 BRIDGE = 'vmbr0';

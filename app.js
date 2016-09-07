@@ -53,3 +53,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log('Listening on port ' + PORT + '!');
 });
+
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
+});

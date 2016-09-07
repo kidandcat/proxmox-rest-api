@@ -1,4 +1,7 @@
 const console = process.console;
+const jayson = require('jayson');
+const client = jayson.client.http(CONTROLLER);
+
 router.delete('/container', (req, res, next) => {
     pve.stopContainer(req.body.id, (response) => {
         res.json({
@@ -173,13 +176,16 @@ router.post('/container', (req, res, next) => {
                     swap: req.body.swap,
                     disk: req.body.disk,
                     net: `name=eth0,ip=${ip}/24,gw=${GATEWAY},bridge=${BRIDGE}`,
-                    password: docs[0].password
+                    password: req.body.password
                 }, (response) => {
                     console.log('res', response);
                     if (typeof response.data != 'undefined' && response.data.substring(0, 4) == 'UPID') {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {
                             pve.startContainer(id, () => {});
+                            client.request('createVPSreturn', [req.body.username, req.body.name, req.body.password, ip, req.body.mailos], (d) => {
+                              //console.log('done', d);
+                            });
                         }, 20000);
 
                         db.insert({
@@ -190,18 +196,20 @@ router.post('/container', (req, res, next) => {
                             if (err) {
                                 console.log('ERROR110', err.message);
                             }
+                            db.update({
+                                username: req.body.username
+                            }, {
+                                $set: {
+                                    machines: ((typeof docs[0].machines != 'undefined') ? docs[0].machines + ':' + id : id)
+                                }
+                            }, {}, function(err, numReplaced) {
+                                if (err) {
+                                    console.log('ERROR121', err.message);
+                                }
+                                //jsonrpc
+                            });
                         });
-                        db.update({
-                            username: req.body.username
-                        }, {
-                            $set: {
-                                machines: ((typeof docs[0].machines != 'undefined') ? docs[0].machines + ':' + id : id)
-                            }
-                        }, {}, function(err, numReplaced) {
-                            if (err) {
-                                console.log('ERROR121', err.message);
-                            }
-                        });
+
                         res.json({
                             id: id
                         });
