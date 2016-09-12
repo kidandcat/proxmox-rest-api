@@ -183,7 +183,7 @@ router.post('/container', (req, res, next) => {
                         let id = response.data.split('vzcreate:')[1].split(':')[0];
                         setTimeout(() => {
                             pve.startContainer(id, () => {});
-                            client.request('createVPSreturn', [req.body.username, req.body.name, req.body.password, ip, req.body.mailos], (d) => {
+                            client.request('createVPSreturn', [req.body.username, req.body.name, req.body.password, ip, req.body.mailos, req.body.type, req.body.duration, id], (d) => {
                               //console.log('done', d);
                             });
                         }, 20000);

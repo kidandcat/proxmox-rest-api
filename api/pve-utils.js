@@ -48,15 +48,15 @@ router.get('/utils/gentoken', (req, res, next) => {
     }
 });
 
-router.post('/utils/transfer', (req, res, next) => {
-    let VMid = req.body.id;
-    let username = req.body.username;
+router.get('/utils/transfer', (req, res, next) => {
+    let VMid = req.query.id;
+    let username = req.query.username;
 
     db.find({
         username: username
     }, function(err, docs) {
         if (docs.length == 0) {
-            res.status(400).send('Username not found!');
+            res.status(400).send('Username "' +username +'" not found!');
             return false;
         }
 
